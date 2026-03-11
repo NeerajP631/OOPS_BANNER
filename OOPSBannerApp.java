@@ -1,8 +1,18 @@
+import java.util.HashMap;
+import java.util.Map;
 public class OOPSBannerApp {
 
     public static void main(String[] args) {
 
-        CharacterPattern oPattern = new CharacterPattern('O', new String[]{
+        Map<Character, String[]> patternMap = buildPatternMap();
+
+        renderBanner("OOPS", patternMap);
+    }
+    public static Map<Character, String[]> buildPatternMap() {
+
+        Map<Character, String[]> map = new HashMap<>();
+
+        map.put('O', new String[]{
                 " ***** ",
                 "*     *",
                 "*     *",
@@ -12,7 +22,7 @@ public class OOPSBannerApp {
                 " ***** "
         });
 
-        CharacterPattern pPattern = new CharacterPattern('P', new String[]{
+        map.put('P', new String[]{
                 "****** ",
                 "*     *",
                 "*     *",
@@ -22,7 +32,7 @@ public class OOPSBannerApp {
                 "*      "
         });
 
-        CharacterPattern sPattern = new CharacterPattern('S', new String[]{
+        map.put('S', new String[]{
                 " ***** ",
                 "*     *",
                 "*      ",
@@ -32,19 +42,24 @@ public class OOPSBannerApp {
                 " ***** "
         });
 
-        CharacterPattern[] word = {
-                oPattern,
-                oPattern,
-                pPattern,
-                sPattern
-        };
+        return map;
+    }
+    public static void renderBanner(String word, Map<Character, String[]> map) {
 
-        int height = oPattern.getPattern().length;
+        int height = map.get('O').length;
 
         for (int i = 0; i < height; i++) {
-            for (CharacterPattern cp : word) {
-                System.out.print(cp.getPattern()[i] + "  ");
+
+            for (char c : word.toCharArray()) {
+
+                String[] pattern = map.get(c);
+
+                if (pattern != null) {
+                    System.out.print(pattern[i] + "  ");
+                }
+
             }
+
             System.out.println();
         }
     }
